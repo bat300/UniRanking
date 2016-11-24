@@ -48,10 +48,12 @@ namespace UniRankingUI
                     while ((LineWithEverithing = rank2012.ReadLine()) != null)
                     {
                         var ArrayWithLines = LineWithEverithing.Split(';');
+                        /*
                         for (int i=0;i<ArrayWithLines.Count(); i++)
                         {
                             Console.WriteLine(ArrayWithLines[i]);
                         }
+                        */
                         Country CurrentCountry = new Country { CountryOfUni = ArrayWithLines[2] };
                         c.Countries.AddOrUpdate(cou => cou.CountryOfUni, CurrentCountry);
                         c.SaveChanges();
