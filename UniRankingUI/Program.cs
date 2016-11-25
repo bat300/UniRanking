@@ -41,8 +41,8 @@ namespace UniRankingUI
                 }
                 c.SaveChanges();
                 
-                
-                using (StreamReader rank2012 = new StreamReader("2012Ranking.csv"))
+                /*
+                using (StreamReader rank2012 = new StreamReader("../../../2012Ranking.csv"))
                 {
                     string LineWithEverithing;
                     while ((LineWithEverithing = rank2012.ReadLine()) != null)
@@ -53,11 +53,12 @@ namespace UniRankingUI
                         {
                             Console.WriteLine(ArrayWithLines[i]);
                         }
-                        */
+                        
+                        
                         Country CurrentCountry = new Country { CountryOfUni = ArrayWithLines[2] };
                         c.Countries.AddOrUpdate(cou => cou.CountryOfUni, CurrentCountry);
                         c.SaveChanges();
-                        UniversitysInfo Univer = new UniversitysInfo { NameOfUniversity = ArrayWithLines[1], CountryOfUniversity = CurrentCountry };
+                        UniversitysInfo Univer = new UniversitysInfo { NameOfUniversity = ArrayWithLines[1], CountryOfUniversity = c.Countries.Single(country => country.CountryOfUni == CurrentCountry.CountryOfUni) };
                         c.Univesities.AddOrUpdate(u => u.NameOfUniversity, Univer);
                         c.SaveChanges();
                         Console.WriteLine(ArrayWithLines.Count().ToString());
@@ -85,8 +86,8 @@ namespace UniRankingUI
                     
                     
                 }
-                
-
+                */
+    
             }
         }
     }

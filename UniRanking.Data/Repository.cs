@@ -128,13 +128,18 @@ namespace UniRanking.Data
                                    orderby rating.Score descending
                                    group rating by rating.Universiry.NameOfUniversity into DataAboutRating
                                    select DataAboutRating;
+                /*
                 foreach (var item in RatingByYear)
                 {
+                    for (var el in item)
+                    {
+                        el.
+                    }
                     string r = string.Format("{0,-15} {1,-10} {2,-4} {3,-4} {4,-4} {5,-4} {6,-4} {7,-4} {8,-4} {9,-6}"
                         , item., item.Location, item.WorldRank, item.NationalRank,
                         item.QualityOfEducation, item.Publications, item.Influence, item.Citations, item.Patents, item.Score);
                     Rating.Add(r);
-                }
+                }*/
             }
             else
             {
@@ -156,14 +161,14 @@ namespace UniRanking.Data
                                      Score = rat.Score
                                  })
                                  .GroupBy(rat=>rat.Location);
-                foreach (var item in RatingByYear)
+              /*  foreach (var item in RatingByYear)
                 {
                     string r = string.Format("{0,-15} {1,-10} {2,-4} {3,-4} {4,-4} {5,-4} {6,-4} {7,-4} {8,-4} {9,-4} {10,-6}"
                         , item.Institition, item.Location, item.WorldRank, item.NationalRank,
                         item.QualityOfEducation, item.Publications, item.Influence, item.Citations,
                         item.Patents, item.BroadImpact, item.Score);
                     Rating.Add(r);
-                }
+                }*/
             }
             return Rating;
         }
