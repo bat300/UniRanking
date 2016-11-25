@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace UniRanking.Data
 {
+    class UniScores
+    {
+        public string NameOfUni { get; set; }
+        public string CountryOfUni { get; set; }
+        public double MinScore { get; set; }
+        public double MaxScore { get; set; }
+        public double AverageScore { get; set; }
+    }
     public class Repository
     {
         
@@ -193,6 +201,42 @@ namespace UniRanking.Data
         public List<string> ScorsAboutUnis()
         {
             List<string> Rating = new List<string>();
+            List<UniScores> UniversitiesScores = new List<UniScores>();
+            double min = 10000;
+            double max = 0;
+            double sum = 0;
+            foreach (var item in cont.Univesities)
+            {
+                foreach (var uni in cont.Ratings)
+                {
+                    if (uni.Universiry.NameOfUniversity==item.NameOfUniversity)
+                    {
+                        sum += uni.Score;
+                        if (uni.Score < min) min = uni.Score;
+                        if (uni.Score > max) max = uni.Score;
+                    }
+                }
+                UniversitiesScores.Add(new UniScores
+                {
+                    NameOfUni = item.NameOfUniversity,
+                    CountryOfUni = item.CountryOfUniversity.CountryOfUni,
+                    MinScore = min,
+                    MaxScore = max,
+                    AverageScore = sum / 5
+                });
+                sum = 0;
+                min = 10000;
+                max = 0;
+            }
+            var OrderedScores = from item in UniversitiesScores
+                                orderby item.AverageScore descending
+                                select item;
+            foreach (var item in OrderedScores)
+            {
+                string Info = string.Format("{0,-15} {1,-10} {2,-4} {3,-4} {4,-4}", item.NameOfUni, item.CountryOfUni,
+                    item.MinScore, item.MaxScore, item.AverageScore);
+                Rating.Add(Info);
+            }
             return Rating;
         }
         
