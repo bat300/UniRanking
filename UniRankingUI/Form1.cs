@@ -14,9 +14,18 @@ namespace UniRankingUI
     public partial class Form1 : Form
     {
         Repository repository = new Repository();
+        
+
         public Form1()
         {
             InitializeComponent();
+            using (Context cont = new Context())
+            {
+                foreach(var item in cont.Univesities)
+                {
+                    comboBoxUniversities.Items.Add(item.NameOfUniversity);
+                }
+            }
         }
 
         private void buttonRatingForYear_Click(object sender, EventArgs e)
@@ -27,13 +36,20 @@ namespace UniRankingUI
                 {
                     listBox1.Items.Clear();
                     var Rating = repository.RatingByYearSortedByCountry(int.Parse(comboBoxYears.Text));
-                    listBox1.Items.Add(Rating);
+                    foreach(var r in Rating)
+                    {
+                        listBox1.Items.Add(r);
+                    }
+                    
                 }
                 else
                 {
                     listBox1.Items.Clear();
                     var Rating = repository.GetRatingByYear(int.Parse(comboBoxYears.Text));
-                    listBox1.Items.Add(Rating);
+                    foreach (var r in Rating)
+                    {
+                        listBox1.Items.Add(r);
+                    }
                 }
             }
             else
@@ -48,7 +64,10 @@ namespace UniRankingUI
             {
                 var Rating = repository.DinamicOfUni(comboBoxUniversities.Text);
                 listBox1.Items.Clear();
-                listBox1.Items.Add(Rating);
+                foreach (var r in Rating)
+                {
+                    listBox1.Items.Add(r);
+                }
             }
             else
             {
@@ -60,7 +79,15 @@ namespace UniRankingUI
         {
             listBox1.Items.Clear();
             var Rating = repository.ScorsAboutUnis();
-            listBox1.Items.Add(Rating);
+            foreach (var r in Rating)
+            {
+                listBox1.Items.Add(r);
+            }
+        }
+
+        private void comboBoxUniversities_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

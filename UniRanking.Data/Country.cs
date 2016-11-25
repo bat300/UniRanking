@@ -11,6 +11,6 @@ namespace UniRanking.Data
         public int Id { get; set; }
         public string CountryOfUni { get; set; }
 
-        //public List<UniversitysInfo> Universities { get; set; }
+        
     }
 }
